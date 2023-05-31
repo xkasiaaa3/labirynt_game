@@ -4,9 +4,9 @@ using UnityEngine.AI;
 public class MinotaurController : MonoBehaviour
 {
     public float movementSpeed = 6.0f;
-    public float detectionRange = 20f;
+    public float detectionRange = 30f;
     public float attackRange = 1f;
-    public float attackDelay =5f;
+    public float attackDelay =3f;
     private float attackTimer = 0.0f;
     public float randomDelay = 9.0f; // Opóźnienie w sekundach
     private float randomTimer = 0.0f;
@@ -14,17 +14,23 @@ public class MinotaurController : MonoBehaviour
     private Animator animator;
     private bool isAwareOfPlayer = false;
     PlayerHealth playerHealth;
+    Rigidbody rb;
+    MinotaurHealth minotaurHealth;
+    private bool isDead = false;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
+        rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        minotaurHealth = GetComponent<MinotaurHealth>();
     }
 
     private void Update()
     {
-        if (IsPlayerInRange()&&!isAwareOfPlayer)
+        if (!isDead){
+            if ((IsPlayerInRange()||minotaurHealth.getCurrentHealth()<minotaurHealth.maxHealth)&&!isAwareOfPlayer)
         {
           
             isAwareOfPlayer = true;
@@ -38,7 +44,15 @@ public class MinotaurController : MonoBehaviour
         else
         {
             Wander();
-        }
+        }}
+
+if(!isDead && minotaurHealth.getCurrentHealth()<1){
+    animator.SetTrigger("Die");
+    isDead = true;
+    isAwareOfPlayer = false;
+animator.SetBool("IsRunning", false);
+}
+
     }
 
     private bool IsPlayerInRange()
@@ -62,7 +76,7 @@ if (IsPlayerInAttackRange()&&attackTimer>=attackDelay){
     animator.SetTrigger("Attack");
     Debug.Log("Attack!");
     if (playerHealth!=null){
-        playerHealth.takeDamage(20);
+        playerHealth.takeDamage(30);
         Debug.Log(playerHealth.getCurrentHealth());
     }
 
@@ -95,4 +109,19 @@ if (IsPlayerInAttackRange()&&attackTimer>=attackDelay){
 
          }
     }
+
+    public void Reset(){
+isAwareOfPlayer = false;
+animator.SetBool("IsRunning", false);
+animator.SetTrigger("Reset");
+animator.ResetTrigger("Attack");
+    }
+
+
+//     private void OnCollisionEnter(Collision col){
+//         if(col.gameObject.name=="Terrain"){
+//         Debug.Log("KOLIZJA");
+// rb.velocity=Vector3.zero;
+//         }
+//     }
 }

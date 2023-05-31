@@ -9,6 +9,7 @@ public class CheckPoint : MonoBehaviour
 [SerializeField] Vector3 vectorPoint;
 PlayerHealth playerHealth;
 CharacterController controller;
+[SerializeField] GameObject minotaur;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ CharacterController controller;
           controller.enabled=false;
             player.transform.position = vectorPoint;
             playerHealth.getMax();
+            if (minotaur!=null){minotaur.GetComponent<MinotaurController>().Reset();}
             controller.enabled=true;
 
 }

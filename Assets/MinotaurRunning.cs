@@ -17,8 +17,10 @@ public class MinotaurRunning : StateMachineBehaviour
  //  OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (Vector3.Distance(transform.position, player.position)>1f){
         Vector3 direction = (player.position - transform.position).normalized;
         transform.position += direction * movementSpeed * Time.deltaTime;
+        }
         transform.LookAt(player.position);
     }
 
