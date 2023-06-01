@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1447745908254080472}
   - component: {fileID: 4247788792853261595}
   - component: {fileID: 1276402472174449178}
-  - component: {fileID: -2137964443885900401}
+  - component: {fileID: -8024447748299251030}
   m_Layer: 0
   m_Name: MagicStick
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2137964443885900401
+--- !u!114 &-8024447748299251030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
