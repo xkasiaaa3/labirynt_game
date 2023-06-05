@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class SimpleCompass : MonoBehaviour
 {
+   
     public Transform player;
-    Vector3 vector;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private GameObject targetObject; // The object to navigate towards
+   
 
-    // Update is called once per frame
     void Update()
     {
-        vector.z = player.eulerAngles.y;
-        transform.localEulerAngles = vector;
+        targetObject = GameObject.FindGameObjectWithTag("Player").GetComponent<CheckPoint>().getNextCheckpoint();
+
+        if (targetObject != null)
+        {
+
+            Vector3 target = targetObject.transform.position;
+            Vector3 relativeTarget = player.parent.InverseTransformPoint(target);
+            float rotation = Mathf.Atan2(-relativeTarget.x,relativeTarget.z)*Mathf.Rad2Deg;
+            transform.localRotation=Quaternion.Euler(0,0,rotation);
+        
+        }
+        else{
+gameObject.SetActive(false);
+        }
     }
 }

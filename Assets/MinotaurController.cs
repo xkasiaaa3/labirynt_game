@@ -112,6 +112,7 @@ if (IsPlayerInAttackRange()&&attackTimer>=attackDelay){
 
     public void Reset(){
 isAwareOfPlayer = false;
+minotaurHealth.getMax();
 animator.SetBool("IsRunning", false);
 animator.SetTrigger("Reset");
 animator.ResetTrigger("Attack");

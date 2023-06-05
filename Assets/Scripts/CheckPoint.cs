@@ -41,5 +41,11 @@ checkPoints.Remove(other.gameObject);
 Destroy(other.gameObject);}
     }
 
+    public GameObject getNextCheckpoint(){
+        if (checkPoints.Count>0){
+        return checkPoints[0];}
+        else return null;
+    }
+
 
 }
