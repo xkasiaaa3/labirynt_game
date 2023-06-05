@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.SceneManagement;
 public class MinotaurController : MonoBehaviour
 {
     public float movementSpeed = 6.0f;
@@ -48,6 +48,7 @@ public class MinotaurController : MonoBehaviour
 
 if(!isDead && minotaurHealth.getCurrentHealth()<1){
     animator.SetTrigger("Die");
+    Invoke("ExitDelayed",3f);
     isDead = true;
     isAwareOfPlayer = false;
 animator.SetBool("IsRunning", false);
@@ -119,10 +120,8 @@ animator.ResetTrigger("Attack");
     }
 
 
-//     private void OnCollisionEnter(Collision col){
-//         if(col.gameObject.name=="Terrain"){
-//         Debug.Log("KOLIZJA");
-// rb.velocity=Vector3.zero;
-//         }
-//     }
+void ExitDelayed(){
+    UnityEditor.EditorApplication.isPlaying = false;
+    Application.Quit ();
+}
 }
